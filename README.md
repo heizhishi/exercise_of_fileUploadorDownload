@@ -13,7 +13,7 @@
 - 设置contentType响应头：设置响应的类型时什么？
 	//通知客户端浏览器：这是一个需要下载的文件，不能再按普通的html的方式打开
 	response.setContentType("application/x-msdownload");
-- 设置Content-Disposition响应头：通知浏览器不再由浏览器来自星处理（或打开）要下载的文件
+- 设置Content-Disposition响应头：通知浏览器不再由浏览器来自行处理（或打开）要下载的文件
 	//通知客户端浏览器：不再由浏览器来处理该文件，而是交由用户自行处理
 	response.setHeader("Content-Disposition","attachment;filename=文件名");
-	- 
+	
