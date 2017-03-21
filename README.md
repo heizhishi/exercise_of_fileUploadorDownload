@@ -24,9 +24,9 @@
 4. mysql语句
 ```sql
 create table if not exists  upload_files(
-	id int unsigned not null auto_increment primary key,
-	file_name varchar(20) not null ,
-	file_path varchar(1000) not null,
-	file_desc varchar(30) not null
+  id int unsigned not null auto_increment primary key,
+  file_name varchar(20) not null ,
+  file_path varchar(1000) not null,
+  file_desc varchar(30) not null
 )engine=myisam auto_increment=1 default charset=utf8;
 ```
