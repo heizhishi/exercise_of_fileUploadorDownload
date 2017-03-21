@@ -1,0 +1,2 @@
+# exercise_of_fileUploadorDownload
+commons-fileupload|校验扩展名|校验文件大小|把文件数据组装为javaBean上传数据库|删除临时文件夹
