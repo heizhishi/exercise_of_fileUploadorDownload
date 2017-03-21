@@ -21,3 +21,12 @@
 
 	response.setHeader("Content-Disposition","attachment;filename=文件名");
 - 具体的文件：可以调用response.getOutputStream的方式，以IO流的方式发送给客户端。
+4. mysql语句
+```sql
+create table if not exists  upload_files(
+id int unsigned not null auto_increment primary key,
+file_name varchar(20) not null ,
+file_path varchar(1000) not null,
+file_desc varchar(30) not null
+)engine=myisam auto_increment=1 default charset=utf8;
+```
