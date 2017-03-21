@@ -30,3 +30,43 @@ create table if not exists  upload_files(
   file_desc varchar(30) not null
 )engine=myisam auto_increment=1 default charset=utf8;
 ```
+5. 使用response.setHeader("Content-Disposition","attachment;filename=文件名");在Firefox浏览器中下载文件，文件名中文乱码问题解决。
+- RFC 2183规定FILENAME只能为US-ASCII码，然而现代浏览器中许多已经支持UTF-8编码了，但各个浏览器的支持规则不同。在IE、chrome中，可以直接用FILENAME作为下载文件的名称，但是Firefox却不支持这样。
+```java
+ public void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+	// 获取文件路径并创建一个出入流
+	String path = this.getServletContext().getRealPath(
+			"/WEB-INF/classes/囧雪.jpg");
+	FileInputStream fis = new FileInputStream(path);
+	// 创建输出流，向客户端输出数据
+	ServletOutputStream sos = response.getOutputStream();
+	// 获取文件名
+	String fileName = path.substring(path.lastIndexOf('\\') + 1);
+	// 文件名转码
+	fileName = URLEncoder.encode(fileName, "UTF-8");
+	// 告诉客户端以什么解码方式打开文件
+	// response.setContentType("UTF-8");
+	// 告诉客户端下载文件
+	if (request.getHeader("User-Agent").toLowerCase().indexOf("firefox") > -1) {
+		response.setHeader("Content-Disposition",
+				"attachment; filename*=UTF-8''" + fileName);
+		System.out.println("firefox");
+	} else {
+		response.setHeader("content-disposition", "attachment; filename="
+				+ fileName);
+	}
+	// response.setHeader("content-disposition", "attachment; filename=" +
+	// fileName);
+	response.setHeader("content-type", "img/jpeg");
+	// 输出
+	byte[] buf = new byte[1024];
+	int len = -1;
+	while ((len = fis.read(buf)) != -1) {
+		sos.write(buf, 0, len);
+	}
+	// 关流
+	sos.close();
+	fis.close();
+}
+```
