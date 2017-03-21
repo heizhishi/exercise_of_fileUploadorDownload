@@ -20,4 +20,4 @@
 	//通知客户端浏览器：不再由浏览器来处理该文件，而是交由用户自行处理
 
 	response.setHeader("Content-Disposition","attachment;filename=文件名");
-	
+- 具体的文件：可以调用response.getOutputStream的方式，以IO流的方式发送给客户端。
